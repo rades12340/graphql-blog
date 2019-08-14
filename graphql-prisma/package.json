@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "",
-    "heroku-postbuild": "build-esm",
+    "start": "env-cmd -f ./config/prod.env node dist/index.js",
+    "heroku-postbuild": "babel src --out-dir dist --copy-files",
     "dev": "env-cmd -f ./config/dev.env nodemon -e js,graphql -r esm src/index.js",
     "get-schema": "graphql get-schema -p prisma"
   },
@@ -15,8 +15,13 @@
   "resolutions": {
     "graphql": "^0.13.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5"
+  },
   "dependencies": {
+    "@babel/polyfill": "^7.4.4",
     "bcryptjs": "^2.4.3",
     "build-esm": "^4.2.1",
     "env-cmd": "^9.0.3",
